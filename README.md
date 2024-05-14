@@ -1,7 +1,11 @@
-# bioinformatics-handbook
-How to speak bioinformatician
+# The Microbial Bioinformatics Handbook
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5c65c255-603d-4d8d-b1ab-c0f0040d0b76/deploy-status)](https://app.netlify.com/sites/genepi-biotrain2024/deploys)
+How to speak bioinformatician (Microbial Genomics). 
+
+
+The site is live on: https://bioinformatics-handbook.netlify.app/ 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/012d0d1c-37d1-4062-ae09-23a98d0aa2b9/deploy-status)](https://app.netlify.com/sites/bioinformatics-handbook/deploys)
 
 
 ## Install and serve
