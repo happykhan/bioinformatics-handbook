@@ -2,4 +2,4 @@
 title: Why is quality control important?
 ---
 
-hello
+It is!

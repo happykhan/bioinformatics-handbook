@@ -1,42 +1,6 @@
 ---
-title: A framework for quality control
+title: Quality control criteria for sequenced reads
 ---
-
-When receiving results from bacterial genomics analyses such as genotyping, *in silico* serotyping, clustering, phylogenetic inference, and predicting antimicrobial resistance (AMR) determinants, you should remember that your data has traversed a laborious and exhaustive journey. That journey could look something like this:
-
-![Basic workflow](basic-workflow.png)
-
-Each of these steps have the potential to introduce errors. Errors which could drastically alter the final interpretation. As a Bioinformatician looking at the data post sequencing, there are two easy oppotunities to assess the quality of the data as it makes it way through our workflow. We should:
-
-* Check the seqeunced reads directly (i.e. the FASTQ output from the sequencing instrument) after simple filtering processes like removing known adapters, 
-* AND Check the quality of the resulting genome after being assembled from the sequenced reads. 
-
-![QC oppotunities](qc-workflow.png)
-
-Many bioinformaticians have their own preferred approach for checking data quality. If you ask them for their approach, they will usually list a set of programs without much explanation as to how these tools were selected and what issue they are trying to address. Here is a well described genome assembly pipeline that covers both read quality control and genome assembly quality control. 
-
-![alt text](image.png)
-
-The pipeline (and figure) are from the [GHRU SPAdes Assembly workflow](https://gitlab.com/cgps/ghru/pipelines/dsl2/pipelines/assembly). In my opinion, this is a comprehesive pipeline that produces good results. You are welcome to use it. Hopefully you can see that in these steps, while cleared named, it is not obvious why these steps are necessary. 
-
-When working with genomic data, all quality control tools answer one or more of these broad questions: 
-
-* Do I have enough sequenced reads for my work?
-* Are the sequenced reads from the organism I am expecting? 
-* Does the quality, provided by the instrument, meet my expectations?
-* Does the genome assembly look like an intact genome from the organism I am expecting?
-
-These four questions can be broken down into seven criteria (with a extra bonus criterion) for quality control of genomic data. Some of these relate to the seqeuenced reads while others apply to the genome assembly. 
-
-* Sequence reads - Yield
-* Sequence reads - Contamination
-* Sequence reads - Condition
-* Genome assembly - Contiguity
-* Genome assembly - Completeness
-* Genome assembly - Contamination
-* Genome assembly - Correctness
-* Genome assembly - BONUS: Circumstantial
-
 When working with genomic data, try not to get overwhelmed with the myriad of tools that assess these categories in one way or another. Instead, keep this list in mind and pick an approach that assesses each criterion. The exact specifics of which tools and what thresholds and metrics you employ is dependant on your specific question. We will go over some of the regularly used tools for typical usage. 
 
 ## Yield (Sequence reads)
@@ -63,6 +27,24 @@ There are more comprehensive ways to calculate genome coverage, but this is an e
 
 The answer is 133 isolates. So what yield should you aim for? The answer is what you hate to hear - it depends. It depends on your organism, and on your use case. As long as you do not hold me accountable I will tell you that in my work, I have gone as low as FIVE times coverage for analyses with read mapping, which is where individual reads are aligned to a reference; and as low as TWENTY times coverage to produce reasonable genome assemblies. However, for genome assemblies and most use cases I have encountered I would recommend genome coverage between 40 to 100. 
 
-### Contamination (Sequence reads)
+## Contamination (Sequence reads)
 
-*Are the sequenced reads from the organism I am expecting?*. We usually have an idea of what organism has been sequenced in each sample, we may know this in terms of the species, or we may have more refined information in terms of the seqeunce type, serotype, lineage or clade. This information is often from other molecular tests, or from the culturing protocol (e.g. selective media). We thus assume that the vast majority of sequenced reads of the sample should be consistent with this prior information. 
+*Are the sequenced reads from the organism I am expecting?* We usually have an idea of what organism has been sequenced in each sample, we may know this in terms of the species, or we may have more refined information in terms of the seqeunce type, serotype, lineage or clade. This information is often from other molecular tests, or from the culturing protocol (e.g. selective media). We thus assume that the vast majority of sequenced reads of the sample should be consistent with this prior information. 
+
+The simplest approach is to align or map the sequenced reads to a reference of the expected organims. This would entail:
+
+* Fetch a reference genome from [Genbank](https://www.ncbi.nlm.nih.gov/genbank/)
+* Map the sequenced reads to that reference
+* Assess how many reads mapped to the reference and how many did not. 
+
+I prefer [minimap2](https://github.com/lh3/minimap2) as my read mapper of choice, as it's fast and had different modes to work with any sequencing technology (PacBio, ONT, Illumina). Bowtie2 is another good option. There are many read mappers and everyone has their favourite. 
+
+!!! tip 
+    It's very easy to get bogged down trying to pick the "best" tool. In cases such as this, where it is a simple check of my data, I reach for something that is appropriate, reliable, fast and familiar. 
+
+Another easy way to check this is to use a tool that provides taxonomic classification of the sequenced reads. These tools usually compare sequenced reads to a database of known reference genomes and use this information to assign the taxonomy for each read. These numbers are then summarised into an overall breakdown of the abundance of each detected taxon. Again, there are many tools to perform this analysis. I reach for [Kraken2](https://ccb.jhu.edu/software/kraken2/), particularly for Illumina data. It is appropriate, reliable, fast and familiar. 
+
+We will look at some alternative approaches in the section "Contamination (Genome assembly)"
+
+## Condition (Sequence reads)
+

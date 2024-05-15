@@ -4,7 +4,7 @@ title: Welcome!
 
 Welcome! This content was prepared as part of the GenEpi-BioTrain programme funded by ECDC. The GenEpi-BioTrain programme is an interdisciplinary course in genomic and epidemiology, which was held at Institut Pasteur between May 27th and June 7th, 2024.
 
-The topic for this session is "Raw data and Assembly"
+The topic for this session is **Raw data and Assembly**
 
 ## Outline and Objectives
 
@@ -24,11 +24,11 @@ The topic for this session is "Raw data and Assembly"
 ## Content to cover
 
 * About me 
-* Why is quality control important? - Issues arising
-* A framework for quality control of whole genome sequencing data
-* Dealing with sequence read data - What is a FASTQ?
-* Quality assessment of sequence read data
-* Basics of genome assembly 
-* The 4C's for quality assessment of genome assemblies
-* Glossary
-* Further reading 
+* [Why is quality control important? - Issues arising](/quality-control/poor-qc-issues)
+* [A framework for quality control of whole genome sequencing data](/quality-control/qc-framework)
+* [Dealing with sequence read data - What is a FASTQ?](/concepts/fastq-in-detail)
+* [Quality assessment of sequence read data](/quality-control/read-qc)
+* [Basics of genome assembly](/concepts/genome-assembly)
+* [The 4C's for quality assessment of genome assemblies](/quality-control/assembly-qc)
+* [Glossary](/glossary)
+* [Further reading](further-reading.md)
