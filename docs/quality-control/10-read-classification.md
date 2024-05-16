@@ -2,109 +2,111 @@
 title: Practical - Read classification of our sequenced data
 ---
 
-If you are part of our 2023 cohort, we should have the sequencing data from what we did earlier in the week. One of the things to help us understand what's in our data is to classify the reads using Kraken2. We can use Kraken2 to classify reads against a database of known sequences. This is a quick way to get an idea of what is in our data.
+One of the things to help us understand what's in our data is to classify the reads using Kraken2. We can use Kraken2 to classify reads against a database of known sequences. This is a quick way to get an idea of what is in our data. We can then visualise the results in another tools like Krona or Pavian. 
 
 Kraken 2 is a bioinformatics tool and software platform designed for the taxonomic classification of DNA sequences in metagenomic data. Metagenomics involves the study of genetic material collected from environmental samples, such as soil, water, or clinical specimens, to understand the microbial diversity present in these samples. Kraken 2 is a popular tool in this field, as it allows researchers to assign taxonomic labels to the sequences, helping them identify the microorganisms present in the samples.
 
-## Installing Kraken2 and Krona
-We will need the following software:
+For this exercise, we have three of the same samples that were processed in three different labs, for a total of nine samples. Usually, you know which organisms have been sent to you, but in this case I will let you figure that out from the data provided. 
 
-* `kraken2` - a taxonomic profiler for metagenomics data
-* `krona` - an interactive visualiser for the output of Kraken2
-* `krakentools` - some useful scripts for manipulating Kraken2 output
-* `taxpasta` - a useful tool for converting and merging Kraken2 outputs into other formats like Excel
-* `busco`
+!!! Thanks
+    Many thanks to Andrea Telatin and Thanh Le Viet, who provided these sequence data. 
 
 
-```bash
-conda install -c conda-forge -c bioconda busco=5.5.0
-conda install -y kraken2 krona blast krakentools 
-```
+**Your tasks are:**
 
-Krona reminds us to run `ktUpdateTaxonomy.sh` before it can be used.
+* Download/Upload the sequenced read data 
+* Process them with Kraken2 
+* View the Kraken2 report
+* Visualise the result in Pavian and/or Krona 
 
-```bash
-ktUpdateTaxonomy.sh
-```
-You can test kraken2 was installed correctly by running it with no command-line options.
+!!! tip 
+    Remember that there are three original isolates (Sample-1, Sample-3, Sample-8), that have been processed by three different groups (Lab-1, Lab-2, Lab-3); This means that we expect "Lab-1-Sample-1", "Lab-2-Sample-1", "Lab-3-Sample-1" to be the same.
 
-```bash
-kraken2
-```
+Then use this information to answer the following questions:
 
-## Kraken2 databases 
-Pre-computed Kraken2 databases are available on the `/shared/public` file system within CLIMB-BIG-DATA. These databases are downloaded from Ben Langmad's publicly available Kraken2 indexes page. These datasets are updated monthly and we will keep the latest versions available.
+* **Which species were each sample supposed to be?**
+* **Are there indiciations of contamination?** 
+* **If there is contamination, what are the top three (in terms of abundance) other species identified?**
+* **For each sample, how many reads were unclassified?**
+* **Consider the typical genome size for each species, and calculate whether the samples have enough coverage for genome assembly**.
+* **What are some possible sources of contamination (if any)? You can simply speculate.**
 
-The `/shared/public` area is designed to store frequently used, important databases for the microbial genomics community. We are just getting started building this resource so please contact us with suggestions for other databases you would like to see here.
+The rest of this page gives information on how to answer these questions. The [answers to these questions is here](/exercise-answers/read-class-answers).
 
-We can take a look at the databases that are available, and their sizes:
+!!! tip 
+    We previous discussed the requirements regarding yield in ["A framework for QC"](01-qc-framework.md). In this case, we would like at least 20X coverage.
 
-```
-du -h -d1 /shared/public/db/kraken2
+## Help! I'm stuck
+If you are having problems getting Kraken2 to run, [here are the report output files](files/Kraken2-Reports.zip). These files have enough information to answer the questions above. You use these files in Pavian as well.
 
-7.5G    /shared/public/db/kraken2/k2_pluspf_08gb
-9.1G    /shared/public/db/kraken2/k2_minusb
-556M    /shared/public/db/kraken2/k2_viral
-69G /shared/public/db/kraken2/k2_pluspf
-7.5G    /shared/public/db/kraken2/k2_standard_08gb
-15G /shared/public/db/kraken2/k2_pluspf_16gb
-65G /shared/public/db/kraken2/k2_standard
-15G /shared/public/db/kraken2/k2_standard_16gb
-264G    /shared/public/db/kraken2/downloads
-7.6G    /shared/public/db/kraken2/k2_pluspfp_08gb
-15G /shared/public/db/kraken2/k2_pluspfp_16gb
-145G    /shared/public/db/kraken2/k2_pluspfp
-619G    /shared/public/db/kraken2
-```
+## Running Kraken2 on these samples 
+I will use [https://usegalaxy.eu/](https://usegalaxy.eu/) as an easy way to run Kraken2, and it will allow you to follow along. You may be able to do this on the command-line later using [some instructions here](11-read-classification-cmd.md)
 
-We can run Kraken2 directly within this JupyterHub notebook which is running in a container. A standard container has 8 CPu cores and 64Gb of memory. Kraken2 doesn't run well unless the database fits into memory, so we can use one of the smaller databases for now such a k2_standard_16gb which contains archaea, bacteria, viral, plasmid, human and UniVec_Core sequences from RefSeq, but subsampled down to a 16Gb database. This will be fast, but we trade off specificity and sensitivity against bigger databases.
+!!! note
+    It's more important to understand the output, so if you are short on time; please skip to the following exercises exploring the results. 
 
-```bash
-kraken2 --threads 8 --db /shared/public/db/kraken2/k2_standard_08gb/ --output dtp2-2.hits.txt --report dtp2-2.report.txt  --use-names  ~/shared-team/week2/sequence-data/DTP-2-2_S10_L001_R1_001.fastq.gz
+### Log in to Galaxy and upload the data 
 
-Loading database information... done.
-155338 sequences (23.46 Mbp) processed in 0.636s (14643.6 Kseq/m, 2211.19 Mbp/m).
-  140136 sequences classified (90.21%)
-  15202 sequences unclassified (9.79%)
-```
+Using the data linked above, upload the sequenced reads to Galaxy - be sure to create these in a List of Pairs collection. 
 
-The dtp2-2.report.txt  gives a human-readable output from Kraken2.
+![alt text](img/galaxy-collection.png)
 
-```
-cat dtp2-2.report.txt  
-```
+The collection should look like this, a list of nine pairs, and each pair has a forward and reverse. 
 
-It's easier to look at Kraken2 results visually using a Krona plot:
+![alt text](img/galaxy-sample.png)
 
-```
-ktImportTaxonomy -t 5 -m 3 dtp2-2.report.txt   -o KronaReport.html
 
-   [ WARNING ]  Score column already in use; not reading scores.
-Loading taxonomy...
-Importing dtp2-2.report.txt...
-Writing KronaReport.html...
-```
+### Running Kraken2 
 
-We can look at the Krona report directly within the browser by using the file navigator to the left - open up the KronaReport.html within the shared-team directory where we are working. Click around the Krona report to see what is in there.
+You should be able to find Kraken2 with the search bar on the left. The input should be Paired Collection and should be the collection of data you uploaded. 
 
-With the `extract_kraken_reads.py` script in krakentools we can quite easily extract a set of reads that we are interested in for further exploration: perhaps to use a more specific method like BLAST against a large protein database, or to extract for de novo assembly.
+![alt text](img/galaxy-kraken2.png)
 
-```
-extract_kraken_reads.py -k dtp2-2.hits.txt  -s ~/shared-team/week2/sequence-data/DTP-2-2_S10_L001_R1_001.fastq.gz -r dtp2-2.report.txt -t 70863 -o whatisthis.fasta --include-children
-```
+The database I selected was "Preprint refseq indexes PlusPF". If you use a different database, you will get slightly different results. 
 
-```
-PROGRAM START TIME: 10-31-2023 16:59:32
->> STEP 0: PARSING REPORT FILE dtp1.report.txt
-        2 taxonomy IDs to parse
->> STEP 1: PARSING KRAKEN FILE FOR READIDS dtp1.hits.txt
-        0.16 million reads processed
-        121338 read IDs saved
->> STEP 2: READING SEQUENCE FILES AND WRITING READS
-        121338 read IDs found (0.16 mill reads processed)
-        121338 reads printed to file
-        Generated file: whatisthis.fasta
-PROGRAM END TIME: 10-31-2023 16:59:37
-```
+!!! warning
+    Remember to "Print a report" under the Create a report dropdown 
 
-If you wished you could go and take these reads and BLAST them over at NCBI-BLAST. There is also the `nr` BLAST database available on CLIMB-BIG-DATA if you wanted to run blastx on them. The BLAST databases are found in `/shared/team/db/blast`.
+![alt text](img/galaxy-kraken2-report.png)
+
+If this is all in order, click Run tool. It may take some time to run, so [here are the report output files](files/Kraken2-Reports.zip) I prepared earlier that you can use for the next step. 
+
+## Exploring the results in the Kraken2 report
+
+Open the Kraken reports you created in Galaxy, or [use the prepared reports here](files/Kraken2-Reports.zip). The report files are text files and should open in any text editor. It will look something like this,
+
+![alt text](img/report.png)
+
+
+There are six columns in each report file: 
+
+* Percentage of fragments covered by the clade rooted at this taxon
+* Number of fragments covered by the clade rooted at this taxon
+* Number of fragments assigned directly to this taxon
+* A rank code, indicating (U)nclassified, (R)oot, (D)omain, (K)ingdom, (P)hylum, (C)lass, (O)rder, (F)amily, (G)enus, or (S)pecies. Taxa that are not at any of these 10 ranks have a rank code that is formed by using the rank code of the closest ancestor rank with a number indicating the distance from that rank. E.g., "G2" is a rank code indicating a taxon is between genus and species and the grandparent taxon is at the genus rank.
+* NCBI taxonomic ID number
+* Indented scientific name
+
+## Exploring the results with Pavian 
+
+Pavian is available on a seperate website: [https://fbreitwieser.shinyapps.io/pavian/](https://fbreitwieser.shinyapps.io/pavian/). To use it, download the Kraken reports you created in Galaxy, or [use the prepared reports here](files/Kraken2-Reports.zip). Extact the report files from the zip file, and upload them into Pavian. 
+
+![Pavian input](img/pavian.png)
+
+
+## Exploring the results with Krona
+
+There are two steps that take the Kraken2 report and create the visualisation with Krona. You must convert reports with the "Krakentools Convert kraken report file" as shown below. 
+
+![Kraken2 to Krona input](img/galaxy-kraken-krona.png)
+
+You must then use the output of this step in Krona, and set the input type to be Tabular.
+
+![Kraken2 to Krona input](img/galaxy-kron.png)
+
+The output will be an HTML file, with the results of all the samples; You can open this directly in Galaxy using the "eye".
+
+![Kraken2 to Krona input](img/galaxy-krona-output.png)
+
+**If you have difficulty running Krona, [here are the precalulated results](files/Krona_pie_chart_on_data_85,_data_84,_and_others__HTML_html.html)**
+

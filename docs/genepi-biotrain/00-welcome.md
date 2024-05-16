@@ -24,11 +24,11 @@ The topic for this session is **Raw data and Assembly**
 ## Content to cover
 
 * About me 
-* [Why is quality control important? - Issues arising](/quality-control/poor-qc-issues)
-* [A framework for quality control of whole genome sequencing data](/quality-control/qc-framework)
+* [Why is quality control important? - Issues arising](/quality-control/00-poor-qc-issues)
+* [A framework for quality control of whole genome sequencing data](/quality-control/01-qc-framework)
 * [Dealing with sequence read data - What is a FASTQ?](/concepts/fastq-in-detail)
-* [Quality assessment of sequence read data](/quality-control/read-qc)
+* [Quality assessment of sequence read data](/quality-control/05-read-qc)
 * [Basics of genome assembly](/concepts/genome-assembly)
-* [The 4C's for quality assessment of genome assemblies](/quality-control/assembly-qc)
+* [The 4C's for quality assessment of genome assemblies](/quality-control/40-assembly-qc)
 * [Glossary](/glossary)
-* [Further reading](further-reading.md)
+* [Further reading](90-further-reading.md)

@@ -1,35 +1,18 @@
 ---
-layout: page
+title: Answers for read QC - FASTQC
 ---
 
-Answers for [short-read-qc exercises]({{site.baseurl}}/modules/sequencing/short-read-qc/)
+Answers for [Practical - Quality control for short reads](/quality-control/20-short-read-qc/)
 
-### Exercise 1: Run FASTQE
-
-**Run FASTQE on the example data, pKP1-NDM-1_R1.fastq.gz and female_oral2.fastq.gz. One at a time. Which data has the better average quality?**
-
-```bash
-fastqe female_oral2.fastq.gz 
-fastqe pKP1-NDM-1_R1.fastq.gz 
-```
-
-![Alt text](image-2.png)
-
-pKP1-NDM-1_R1.fastq.gz has the better quality. 
-
-**Which portion of read has the lower average quality, and for which file?**
-
-The tail end (3') of female_oral2.fastq.gz has the lowest average quality.
-
-**What is the lowest mean score in female_oral2.fastq.gz?**
-
-The lowest score in this dataset is 😿 13.
-
-### Exercise 2: Run FASTQC
+### Exercise 1: Run FASTQC
 
 * Run FASTQC on female_oral2.fastq.gz.
 * Run FASTQC on pKP1-NDM-1_R1.fastq.gz and pKP1-NDM-1_R2.fastq.gz together.
 * Review and compare the HTML reports.
+
+FASTQC is available in [https://usegalaxy.eu/](https://usegalaxy.eu/).
+
+If using the command line:
 
 ```bash
 fastqc female_oral2.fastq.gz 
@@ -63,9 +46,10 @@ The header does not contain the tile number, so FASTQC cannot calculate the per 
 
 **Review each metric for female_oral2.fastq.gz, what part of each plot suggests there is a problem?**
 
-> Remember, the pKP1-NDM-1 reads are simulated reads, with minimal error. These are effectively "perfect" and will not be representative of real data. We can use this to compare with problematic data (female_oral2.fastq.gz)
+!!! tip
+    Remember, the pKP1-NDM-1 reads are simulated reads, with minimal error. These are effectively "perfect" and will not be representative of real data. We can use this to compare with problematic data (female_oral2.fastq.gz)
 
-![Alt text](image-4.png)
+![Alt text](/quality-control/img/image-4.png)
 
 On the x-axis are the base position in the read. In this example, the sample contains reads that are up to 296 bp long. There is a clear dropoff of quality at the 3' end of the reads, after position 100. The first part of the reads are of good quality. 
 
@@ -86,23 +70,23 @@ Why do the 3' ends of reads have lower quality?
 
 This applies to Illumina, and the trend will be different for other sequencing platforms.
 
-![Alt text](image-6.png)
+![Alt text](/quality-control/img/image-6.png)
 
 This plot enables you to look at the quality scores from each tile across all of your bases to see if there was a loss in quality associated with only one part of the flowcell. The plot shows the deviation from the average quality for each flowcell tile. The hotter colours indicate that reads in the given tile have worse qualities for that position than reads in other tiles. With this sample, you can see that certain tiles show consistently poor quality, especially from ~100bp onwards. A good plot should be blue all over.
 
 Some tiles are clearly problematic, with a large number of reads with low quality, after position 100.
 
-![Alt text](image-7.png)
+![Alt text](/quality-control/img/image-7.png)
 
 This plots the average quality score over the full length of all reads on the x-axis and gives the total number of reads with this score on the y-axis. The distribution of average read quality should be tight peak in the upper range of the plot. It can also report if a subset of the sequences have universally low quality values: it can happen because some sequences are poorly imaged (on the edge of the field of view etc), however these should represent only a small percentage of the total sequences.
 
-![Alt text](image-8.png)
+![Alt text](/quality-control/img/image-8.png)
 
 “Per Base Sequence Content” plots the percentage of each of the four nucleotides (T, C, A, G) at each position across all reads in the input sequence file. As for the per base sequence quality, the x-axis is non-uniform.
 
 In a random library we would expect that there would be little to no difference between the four bases. The proportion of each of the four bases should remain relatively constant over the length of the read with `%A=%T` and `%G=%C`, and the lines in this plot should run parallel with each other. This is amplicon data, where 16S DNA is PCR amplified and sequenced, so we’d expect this plot to have some bias and not show a random distribution. Have a look at pKP1-NDM-1 for an example of a random library. 
 
-![Alt text](image-9.png)
+![Alt text](/quality-control/img/image-9.png)
 
 This plot displays the number of reads vs. percentage of bases G and C per read. It is compared to a theoretical distribution assuming an uniform GC content for all reads, expected for whole genome shotgun sequencing, where the central peak corresponds to the overall GC content of the underlying genome. Since the GC content of the genome is not known, the modal GC content is calculated from the observed data and used to build a reference distribution.
 
@@ -112,7 +96,7 @@ But there are also other situations in which an unusually-shaped distribution ma
 
 Here, this might be a problem because there are multiple peaks, but it might be expected - depending on what you are doing. This can be indicative of unexpected contamination, such as adapter, rRNA or overrepresented sequences. Or it may be normal if it is amplicon data or you have highly abundant RNA-seq transcripts. 
 
-![Alt text](image-10.png)
+![Alt text](/quality-control/img/image-10.png)
 
 In a diverse library most sequences will occur only once in the final set. A low level of duplication may indicate a very high level of coverage of the target sequence, but a high level of duplication is more likely to indicate some kind of enrichment bias.
 
@@ -131,7 +115,9 @@ RNA sequencing data may have some transcripts that are so abundant that they reg
 
 We tried to explain here there different FastQC reports and some use cases. More about this and also some common next-generation sequencing problems can be found on [QCFAIL.com](https://sequencing.qcfail.com/)
 
-> One of the key take homes is that quality control is dependant on the type of sequencing you are doing. For example, amplicon data will have different quality concerns to random shotgun data. It's hard to give generic guidelines around quality. Quality control starts with YOU!
+
+!!! tip
+    One of the key take homes is that quality control is dependant on the type of sequencing you are doing. For example, amplicon data will have different quality concerns to random shotgun data. It's hard to give generic guidelines around quality. Quality control starts with YOU!
 
 **female_oral2.fastq.gz data looks terrible, we should probably resequence it, but if we had to; how could we improve the quality?**
 
@@ -142,6 +128,4 @@ If the quality of the reads is not good, we should always first check what is wr
 
 You can also ask the sequencing facility about it, especially if the quality is really bad: the quality treatments can not solve everything. If too many bad quality bases are cut away, the corresponding reads then will be filtered out and you lose them.
 
-Answers for [short-read-qc exercises]({{site.baseurl}}/modules/sequencing/short-read-qc/)
-
-[Back to Programme]({{site.baseurl}}/modules/sequencing/week-2-programme/).
+Answers for [Practical - Quality control for short reads](/quality-control/20-short-read-qc/)

@@ -4,9 +4,9 @@ title: Quality control criteria for sequenced reads
 When working with genomic data, try not to get overwhelmed with the myriad of tools that assess these categories in one way or another. Instead, keep this list in mind and pick an approach that assesses each criterion. The exact specifics of which tools and what thresholds and metrics you employ is dependant on your specific question. We will go over some of the regularly used tools for typical usage. 
 
 ## Yield (Sequence reads)
-*Do I have enough sequenced reads for my work?*. We assume that in whole genome sequencing that the selection of DNA is random, such that with enough sequencing we should see representation of every position in the genome. In order to have confidence of the base called in that position, we *over*sample to have a number of reads from the same position to form a consensus. There are two main reasons why we oversample:
+*Do I have enough sequenced reads for my work?* We assume that in whole genome sequencing that the selection of DNA is random, such that with enough sequencing we should see representation of every position in the genome. In order to have confidence of the base called in that position, we *over*sample to have a number of reads from the same position to form a consensus. There are two main reasons why we oversample:
 
-* The selection of DNA is *not* actually random. Some regions of the genome can prove problematic for some sequencing technologies, or some regions tend to be favoured by some technologies. If you plot the true read coverage across a genome, you will often see coverage variation across the genome - and in some region the coverage can be too low. For this reason, oversampling allows us to overcome any regions that may potentially drop out. 
+* The selection of DNA is *not* actually random. Some regions of the genome can prove problematic for some sequencing technologies, or some regions tend to be favoured by some technologies. If you plot the true read coverage across a genome, you will often see coverage variation across the genome - and in some regions the depth of coverage can be too low. For this reason, oversampling allows us to overcome any regions that may potentially drop out. 
 * Sequencing technologies can not perfectly read individual bases. For a number of reasons which depend on the specific instrument, there will be erroneous bases introduced in individual reads. Luckily, for most instances, the error is random so by having additional reads of the same location we can correct errors in individual reads by looking for a consensus base call. 
 
 Assuming that the DNA selection is random (which it isn't), we can do a quick calculation of the average coverage across a genome. We need to know the length of the original genome (G), the number of reads (N), and the average read length (L) to calculate the coverage which is: 
@@ -31,7 +31,7 @@ The answer is 133 isolates. So what yield should you aim for? The answer is what
 
 *Are the sequenced reads from the organism I am expecting?* We usually have an idea of what organism has been sequenced in each sample, we may know this in terms of the species, or we may have more refined information in terms of the seqeunce type, serotype, lineage or clade. This information is often from other molecular tests, or from the culturing protocol (e.g. selective media). We thus assume that the vast majority of sequenced reads of the sample should be consistent with this prior information. 
 
-The simplest approach is to align or map the sequenced reads to a reference of the expected organims. This would entail:
+The simplest approach is to align or map the sequenced reads to a reference genome of the expected organism. This would entail:
 
 * Fetch a reference genome from [Genbank](https://www.ncbi.nlm.nih.gov/genbank/)
 * Map the sequenced reads to that reference
@@ -44,7 +44,23 @@ I prefer [minimap2](https://github.com/lh3/minimap2) as my read mapper of choice
 
 Another easy way to check this is to use a tool that provides taxonomic classification of the sequenced reads. These tools usually compare sequenced reads to a database of known reference genomes and use this information to assign the taxonomy for each read. These numbers are then summarised into an overall breakdown of the abundance of each detected taxon. Again, there are many tools to perform this analysis. I reach for [Kraken2](https://ccb.jhu.edu/software/kraken2/), particularly for Illumina data. It is appropriate, reliable, fast and familiar. 
 
-We will look at some alternative approaches in the section "Contamination (Genome assembly)"
+We will look at some alternative approaches to detecting contamination in the section "Contamination (Genome assembly)". For now, let's apply what we have learnt so far. 
+
+Go to [Practical - Read classification of our sequenced data](10-read-classification.md)
 
 ## Condition (Sequence reads)
 
+
+
+* Total number of sequences and average sequence length
+* GC content
+* Base by base sequence Quality across the length of the reads 
+* The proportion of each nucleotide (A, T, C, G) at each position across all reads to detect any unexpected patterns or biases.
+* The percentage of ambiguous base calls (N) at each position in the reads.
+* Sequence Duplication
+* Overrepresented Sequences: sequences that appear more frequently than expected, which can indicate contamination or other anomalies.
+* Adapter Content
+
+Much of this is covered in [Dealing with sequence read data - What is a FASTQ?](/concepts/fastq-in-detail). 
+
+Go to [Practical - Quality control for short reads](20-short-read-qc.md)

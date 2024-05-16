@@ -1,8 +1,6 @@
 ---
-layout: page
+title: Answers for Using tar and gzip
 ---
-
-# Exercise answers for: Using tar and gzip for fun and profit
 
 [Back to gzip exercise](/unix/using-gzip)
 
