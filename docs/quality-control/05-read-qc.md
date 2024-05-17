@@ -3,6 +3,8 @@ title: Quality control criteria for sequenced reads
 ---
 When working with genomic data, try not to get overwhelmed with the myriad of tools that assess these categories in one way or another. Instead, keep this list in mind and pick an approach that assesses each criterion. The exact specifics of which tools and what thresholds and metrics you employ is dependant on your specific question. We will go over some of the regularly used tools for typical usage. 
 
+Go back to [A framework for quality control](01-qc-framework.md)
+
 ## Yield (Sequence reads)
 *Do I have enough sequenced reads for my work?* We assume that in whole genome sequencing that the selection of DNA is random, such that with enough sequencing we should see representation of every position in the genome. In order to have confidence of the base called in that position, we *over*sample to have a number of reads from the same position to form a consensus. There are two main reasons why we oversample:
 
@@ -50,7 +52,9 @@ Go to [Practical - Read classification of our sequenced data](10-read-classifica
 
 ## Condition (Sequence reads)
 
+Unlike criteria like Yield and Contamination, Condition looks at the intrinsic quality of the sequencing data. We are checking for errors introduced in the sequencing process, which include poor overall sequence read quality, shorter read length than expected, or introduced artefacts like unexpected constructs like adapter content. Luckily, sequencing instruments provide a quality score for each base sequenced along with the base itself, and many instruments provide detailed reporting as well. I find the reports from Illumina platforms very useful i.e. output from [bcl2fastq](https://support.illumina.com/content/dam/illumina-support/documents/documentation/software_documentation/bcl2fastq/bcl2fastq_letterbooklet_15038058brpmi.pdf). 
 
+Here are a list of considerations for assesing the overall condition of sequenced reads: 
 
 * Total number of sequences and average sequence length
 * GC content
@@ -61,6 +65,8 @@ Go to [Practical - Read classification of our sequenced data](10-read-classifica
 * Overrepresented Sequences: sequences that appear more frequently than expected, which can indicate contamination or other anomalies.
 * Adapter Content
 
-Much of this is covered in [Dealing with sequence read data - What is a FASTQ?](/concepts/fastq-in-detail). 
+The specifics on how base qualities are presented to you (in FASTQ files) and what these values specifically mean is covered in [Dealing with sequence read data - What is a FASTQ?](/concepts/fastq-in-detail). For now, we will use look at some example data using FASTQC to learn more about the consideration above. 
 
 Go to [Practical - Quality control for short reads](20-short-read-qc.md)
+
+Go back to [A framework for quality control](01-qc-framework.md)
