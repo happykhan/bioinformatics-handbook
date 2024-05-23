@@ -32,9 +32,10 @@ These four questions can be broken down into seven criteria (with a extra bonus 
 * [Sequence reads - Contamination](/quality-control/05-read-qc/#contamination-sequence-reads)
 * [Sequence reads - Condition](/quality-control/05-read-qc/#condition-sequence-reads)
 * [Genome assembly - Contiguity](/quality-control/40-assembly-qc/#contiguity-genome-assembly)
-* Genome assembly - Contamination
-* Genome assembly - Correctness
-* Genome assembly - BONUS: Circumstantial
+* [Genome assembly - Completeness](/quality-control/40-assembly-qc/#completeness-genome-assembly)
+* [Genome assembly - Contamination](/quality-control/40-assembly-qc/#contamination-genome-assembly)
+* [Genome assembly - Correctness](/quality-control/40-assembly-qc/#correctness-genome-assembly)
+* [Genome assembly - BONUS: Circumstantial](/quality-control/40-assembly-qc/#bonus-circumstantial-genome-assembly)
 
 We will break these categories down further in these sections:
 

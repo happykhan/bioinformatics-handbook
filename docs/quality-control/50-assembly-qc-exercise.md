@@ -1,17 +1,19 @@
 ---
 title: Practical - Genome assembly QC
 ---
- Here we will look at some genomes and assess their quality. Most of these genomes have (in my opinion) have quality issues. Remember that we are looking to as perfect reconstruction to the original genome, and we can assess this in different ways: 
+ Here we will look at some genomes and assess their quality. Most of these genomes have (in my opinion) have quality issues. Remember that we are looking for as close to a perfect reconstruction of the original genome as possible, and we can assess this in different ways: 
 
 * Contiguity
 * Correctness
 * Completeness
 * Contamination
 
-## Assessing genome assembly quality
+These are explained here, [Quality control criteria for genome assemblies](/quality-control/40-assembly-qc). 
+
+## Exercise: Assessing genome assembly quality
 
 The exercise is to download some assembled draft genomes and assess if they pass routine quality control. *The genomes are available at [https://zenodo.org/records/10018484](https://zenodo.org/records/10018484)*. 
-You can directly download them with `wget` or similar. 
+You can directly download them on the command line with `wget` or similar. 
 
 ```
 wget -O additional_genomes_for_qc.zip https://zenodo.org/records/10018484/files/additional_genomes_for_qc.zip?download=1
@@ -30,9 +32,7 @@ TGGTGTTGGTGCCAACGGCCTGACC...
 GCCGCTTTTTCGCGTTGCTTAATCT...
 ```
 
-## Exercise 1: Assessing genome assembly quality
-
-**Try to create a table of your assessment (with better explanations)** like the one below:
+**Try to create a table of your assessment (with better explanations)** like the one below: 
 
 | Sample name | Pass/Fail | Reason |
 |-------------|-----------|--------|
@@ -45,8 +45,18 @@ GCCGCTTTTTCGCGTTGCTTAATCT...
 | sample_7    |           |        |
 | sample_8    |           |        |
 
-This exercise is open-ended, and you can use any tools you like. You can use the tools we have used in the previous section, or you can try other tools. You can work in groups, or divide the different criteria between yourselves.
+This exercise is open-ended, and you can use any tools you like. You can use the tools mention in [Quality control criteria for genome assemblies](/quality-control/40-assembly-qc), or you can try other tools. You can work in groups, or divide the different criteria between yourselves.
 
-[Answers to exercises](/seq-analysis/check-qc-answers/)
+If you do not have time, or the capacity to run these analyses, please use the precomputed results below. It is more important that you learn how to interpret the results. 
 
-[Back to Programme]({{site.baseurl}}/modules/sequence-analysis/programme/).
+* [BUSCO - summary images](/quality-control/files/busco_summary_image.zip)
+* [BUSCO - short summaries](/quality-control/files/busco_short_summary.zip)
+* [Kraken2 - Reports](/quality-control/files/kraken_ass-report.zip)
+* [MLST - summary](/quality-control/files/mlst.tsv)
+* [QUAST - pdf](/quality-control/files/quast-qc.pdf)
+* [QUAST - table](/quality-control/files/quast-qc.tabular.txt)
+* [QUAST - html](/quality-control/files/Quast-qc-html.zip)
+
+
+[Answers to exercises](/exercise-answers/check-qc-answers/)
+

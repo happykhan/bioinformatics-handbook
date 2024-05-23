@@ -39,6 +39,9 @@ The rest of this page gives information on how to answer these questions. The [a
 ## Help! I'm stuck
 If you are having problems getting Kraken2 to run, [here are the report output files](files/Kraken2-Reports.zip). These files have enough information to answer the questions above. You use these files in Pavian as well.
 
+There are some [krona plots available here](files/Krona_pie_chart_on_data_85,_data_84,_and_others__HTML_html.html).
+
+
 ## Running Kraken2 on these samples 
 I will use [https://usegalaxy.eu/](https://usegalaxy.eu/) as an easy way to run Kraken2, and it will allow you to follow along. You may be able to do this on the command-line later using [some instructions here](11-read-classification-cmd.md)
 
