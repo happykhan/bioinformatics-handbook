@@ -1,0 +1,1721 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../file-compression/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>Using tar and gzip for fun and profit - The Microbial Bioinformatics Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#example-files" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Microbial Bioinformatics Handbook" class="md-header__button md-logo" aria-label="The Microbial Bioinformatics Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Microbial Bioinformatics Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using tar and gzip for fun and profit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Microbial Bioinformatics Handbook" class="md-nav__button md-logo" aria-label="The Microbial Bioinformatics Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    The Microbial Bioinformatics Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to The Microbial Bioinformatics Handbook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Assembly compare
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Assembly compare
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly-compare/assembly-hybrid-short-read/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hybrid and short-read-only assembly of sequenced reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/fastq-in-detail/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FASTQ in detail
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/file-formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploring file formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/genome-assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is a genome assembler doing?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequence-alignment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local vs global alignment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequence-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Revisting sequence file formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequencing-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Background to sequencing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exercise answers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Exercise answers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/check-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answeres for Practical - Genome assembly QC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/fastq-in-detail-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FASTQ in detail answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/file-compression-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File compression answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/file-formats-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Common file formats (answers)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/long-read-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Long read qc answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/read-class-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/sequence-data-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sequence data answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/short-read-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read QC - FASTQC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/short-read-qc-answers2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read QC - trimming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/using-gzip-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for Using tar and gzip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Genepi biotrain
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Genepi biotrain
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genepi-biotrain/00-welcome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genepi-biotrain/90-further-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Further reading and additional resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Genome annotation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Genome annotation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genome-annotation/2000-01-07-annotation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Genome browsers and annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genome-annotation/2000-01-08-auto-annotation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automated annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quality control
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Quality control
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/00-poor-qc-issues/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why is quality control important?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/01-qc-framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A framework for quality control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/05-read-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality control criteria for sequenced reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/10-read-classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Read classification of our sequenced data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/11-read-classification-cmd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Read classification (command-line)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/20-short-read-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Quality control for short reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/40-assembly-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality control criteria for genome assemblies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/50-assembly-qc-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Genome assembly QC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Unix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Unix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file-compression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understanding file compression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Using tar and gzip for fun and profit
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Using tar and gzip for fun and profit
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-creating-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 1: Creating files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-gzip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using gzip
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using gzip">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compress-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compress a File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decompress-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decompress a File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compression Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-and-decompressing-with-piping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compressing and Decompressing with Piping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-using-gzip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 2: Using gzip
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-tar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using tar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-tar-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Tar Archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-the-contents-of-a-tar-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing the Contents of a Tar Archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-files-from-a-tar-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting Files from a Tar Archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-files-to-a-specific-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting Files to a Specific Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-tar-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compressing Tar Archives
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-using-tar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3: Using tar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1-creating-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 1: Creating files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-gzip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using gzip
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using gzip">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compress-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compress a File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decompress-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decompress a File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compression Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-and-decompressing-with-piping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compressing and Decompressing with Piping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2-using-gzip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 2: Using gzip
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-tar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using tar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using tar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-tar-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Tar Archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-the-contents-of-a-tar-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing the Contents of a Tar Archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-files-from-a-tar-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting Files from a Tar Archive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-files-to-a-specific-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting Files to a Specific Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressing-tar-archives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compressing Tar Archives
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-3-using-tar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise 3: Using tar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Using tar and gzip for fun and profit</h1>
+
+<p>Gzip (GNU zip) compression is a widely used file compression and decompression format and tool that reduces the size of files or data streams to save storage space or reduce data transfer times over a network. It was developed as part of the GNU project and is commonly found in Unix-like operating systems, including Linux.</p>
+<p><code>tar</code> is a command-line utility and a file format used for archiving and compressing files and directories. The term "tar" stands for "tape archive," refering to when data was stored on magnetic tapes. The <code>tar</code> utility is a commonly used tool for creating, extracting, and managing archive files in the tar format.</p>
+<h2 id="example-files">Example files</h2>
+<p>Make some example files for us to play with.</p>
+<p>You can use any combination of these, or make your own. Make at least 3 files. You can use a terminal text editor like <code>vi</code> or <code>emacs</code>, but do not use the GUI text editor.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>grep<span class="w"> </span>--help<span class="w">   </span>&gt;<span class="w"> </span>grep_help.txt
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>touch<span class="w"> </span>empty_file.txt
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;This is some text&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>sometext.txt
+</code></pre></div>
+<h3 id="exercise-1-creating-files">Exercise 1: Creating files</h3>
+<p><strong>Create the some example file, as described above.</strong> </p>
+<p><strong>What is <code>touch</code>? What does <code>touch</code> do if the file already exists?</strong> </p>
+<p><strong>From the example above, What does the <code>&gt;</code> do for the grep output?</strong></p>
+<p><strong>What does <code>echo</code> do?</strong></p>
+<p><strong>How can you view the contents of these files?</strong></p>
+<h2 id="using-gzip">Using <code>gzip</code></h2>
+<p>The remainered of this module will use the example files you've created to demonstrate how to use <code>gzip</code> and <code>tar</code>. <code>gzip</code> allows use to compress files, while <code>tar</code> allows us to group files together. Let's start with <code>gzip</code>.  <code>gzip</code> should be pre-installed. To check if you have <code>gzip</code> installed, open a terminal and run:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gzip<span class="w"> </span>--version
+</code></pre></div>
+If it's not installed, (tell us!) but on other systems you can typically install it using your system's package manager (e.g., <code>apt</code>, <code>yum</code>, <code>brew</code>, etc.).</p>
+<h4 id="compress-a-file">Compress a File</h4>
+<p>To compress a file using <code>gzip</code>, you can run the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gzip<span class="w"> </span>filename
+</code></pre></div>
+<p>Replace <code>filename</code> with the name of the file you want to compress. This command will create a compressed file with the <code>.gz</code> extension, such as <code>filename.gz</code>.</p>
+<h4 id="decompress-a-file">Decompress a File</h4>
+<p>To decompress a <code>.gz</code> file, use the <code>gunzip</code> command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>gunzip<span class="w"> </span>filename.gz
+</code></pre></div>
+<p>This will restore the original file, removing the <code>.gz</code> extension.</p>
+<h4 id="compression-options">Compression Options</h4>
+<ul>
+<li><code>-d</code> or <code>--decompress</code>: Decompress the specified file(s).</li>
+<li><code>-c</code> or <code>--stdout</code>: Write compressed data to standard output (useful for piping data).</li>
+<li><code>-k</code> or <code>--keep</code>: Keep the original file after compression (by default, the original file is removed).</li>
+<li><code>-v</code> or <code>--verbose</code>: Display compression details.</li>
+</ul>
+<h4 id="compressing-and-decompressing-with-piping">Compressing and Decompressing with Piping</h4>
+<p>You can also use <code>gzip</code> and <code>gunzip</code> with pipes to compress and decompress data on the fly. For example, to compress the output of a command and save it to a file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>command_to_generate_data<span class="w"> </span><span class="p">|</span><span class="w"> </span>gzip<span class="w"> </span>-c<span class="w"> </span>&gt;<span class="w"> </span>compressed_data.gz
+</code></pre></div>
+<p>And to decompress and process data from a compressed file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>gunzip<span class="w"> </span>-c<span class="w"> </span>compressed_data.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>command_to_process_data
+</code></pre></div>
+<h3 id="exercise-2-using-gzip">Exercise 2: Using <code>gzip</code></h3>
+<p><strong>With the information above, and whatever else you can find via the internet, compress the files you created in Exercise 1.</strong></p>
+<p><strong>Now reverse it by decompressing those files</strong></p>
+<p><strong>What is the difference in size of the compressed files and the original files?</strong></p>
+<p><strong>Can you compress one of the files while keeping the original (decompressed)?</strong> </p>
+<p><strong>What happens to the file extension after compressing with <code>gzip</code>?</strong></p>
+<p><strong>How can you view the contents of these files?</strong></p>
+<p><strong>What is the difference between <code>|</code> and <code>&gt;</code>?</strong></p>
+<p><strong>Can you combine the steps in exercise 1 and 2, to create and compress a file in one step?</strong></p>
+<p>This is difficult. Hint, use piping. </p>
+<p><a href="/seq-data/using-gzip-answers">Answers to exercise questions</a></p>
+<h2 id="using-tar">Using tar</h2>
+<p>To use the <code>tar</code> command in a Linux or Unix-like operating system, you can perform various operations, such as creating archives, extracting files from archives, and more. Here's a basic explanation of how to use <code>tar</code> with some common operations:</p>
+<h4 id="creating-a-tar-archive">Creating a Tar Archive</h4>
+<p>To create a tar archive, you typically use the <code>-c</code> (create) option, followed by the <code>-f</code> (file) option to specify the archive file's name. You also list the files and directories you want to include in the archive. For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>tar<span class="w"> </span>-cvf<span class="w"> </span>archive.tar<span class="w"> </span>file1.txt<span class="w"> </span>file2.txt<span class="w"> </span>directory/
+</code></pre></div>
+<ul>
+<li><code>-c</code>: Create a new archive.</li>
+<li><code>-v</code>: Verbose mode (optional, for displaying the progress).</li>
+<li><code>-f archive.tar</code>: Specify the archive file name.</li>
+<li><code>file1.txt file2.txt directory/</code>: List the files and directories to include in the archive.</li>
+</ul>
+<h4 id="viewing-the-contents-of-a-tar-archive">Viewing the Contents of a Tar Archive</h4>
+<p>You can list the contents of a tar archive without extracting them using the <code>-t</code> (list) option:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>tar<span class="w"> </span>-tvf<span class="w"> </span>archive.tar
+</code></pre></div>
+<ul>
+<li><code>-t</code>: List the contents of the archive.</li>
+</ul>
+<h4 id="extracting-files-from-a-tar-archive">Extracting Files from a Tar Archive</h4>
+<p>To extract files from a tar archive, you can use the <code>-x</code> (extract) option:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>tar<span class="w"> </span>-xvf<span class="w"> </span>archive.tar
+</code></pre></div>
+<ul>
+<li><code>-x</code>: Extract files from the archive.</li>
+</ul>
+<h4 id="extracting-files-to-a-specific-directory">Extracting Files to a Specific Directory</h4>
+<p>You can specify the target directory for extraction using the <code>-C</code> (change directory) option:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>tar<span class="w"> </span>-xvf<span class="w"> </span>archive.tar<span class="w"> </span>-C<span class="w"> </span>/path/to/target_directory
+</code></pre></div>
+<ul>
+<li><code>-C /path/to/target_directory</code>: Extract files to the specified directory.</li>
+</ul>
+<h4 id="compressing-tar-archives">Compressing Tar Archives</h4>
+<p>You can create compressed tar archives using the <code>gzip</code> or <code>bzip2</code> compression utilities. For example:</p>
+<ul>
+<li>To create a gzip-compressed tar archive: <code>tar -cvzf archive.tar.gz file1.txt file2.txt directory/</code></li>
+<li>To create a bzip2-compressed tar archive: <code>tar -cvjf archive.tar.bz2 file1.txt file2.txt directory/</code></li>
+</ul>
+<p>To extract from compressed archives, you can use the <code>-z</code> option for gzip-compressed archives or the <code>-j</code> option for bzip2-compressed archives.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>tar<span class="w"> </span>-xvzf<span class="w"> </span>archive.tar.gz
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>tar<span class="w"> </span>-xvjf<span class="w"> </span>archive.tar.bz2
+</code></pre></div>
+<h3 id="exercise-3-using-tar">Exercise 3: Using <code>tar</code></h3>
+<p><strong>With the information above, and whatever else you can find via the internet, bundle all the files you created in Exercise 1 into a tarball</strong></p>
+<p><strong>Now reverse it by extracting those files</strong></p>
+<p><strong>What is the difference in size of the <code>tar</code> file and the sum of the original files? Is this what you expected?</strong></p>
+<p><strong>What is the difference in file name of the output file between directly compressing with <code>gzip</code> and using <code>tar</code>?</strong></p>
+<p><strong>What is the purpose of the <code>-v</code> flag in the <code>tar</code> command.</strong></p>
+<p><strong>Can you combine the steps in exercise 2 and 3, to create an archive and compress it in one step?</strong></p>
+<p>i.e. create a <code>.tar.gz</code> file in one step. </p>
+<p>Hint. Ask Arnie:</p>
+<p><img alt="Alt text" src="../img/image-1.png" /></p>
+<p><strong>Try running <code>zcat</code> on this file, what does zcat do?</strong></p>
+<p><a href="/exercise-answers/using-gzip-answers">Answers to exercise questions</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

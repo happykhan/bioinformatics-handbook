@@ -1,0 +1,1788 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../file-compression-answers/">
+      
+      
+        <link rel="next" href="../long-read-qc-answers/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>Common file formats (answers) - The Microbial Bioinformatics Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#common-file-formats-answers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Microbial Bioinformatics Handbook" class="md-header__button md-logo" aria-label="The Microbial Bioinformatics Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Microbial Bioinformatics Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Common file formats (answers)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Microbial Bioinformatics Handbook" class="md-nav__button md-logo" aria-label="The Microbial Bioinformatics Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    The Microbial Bioinformatics Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to The Microbial Bioinformatics Handbook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Assembly compare
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Assembly compare
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly-compare/assembly-hybrid-short-read/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hybrid and short-read-only assembly of sequenced reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/fastq-in-detail/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FASTQ in detail
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/file-formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploring file formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/genome-assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is a genome assembler doing?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequence-alignment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local vs global alignment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequence-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Revisting sequence file formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequencing-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Background to sequencing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exercise answers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Exercise answers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../check-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answeres for Practical - Genome assembly QC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastq-in-detail-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FASTQ in detail answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file-compression-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File compression answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Common file formats (answers)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Common file formats (answers)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#identify-the-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identify the file format?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-other-common-file-extensions-people-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      List other common file extensions people use?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-define-some-general-rules-to-determine-the-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can you define some general rules to determine the file format?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Can you define some general rules to determine the file format?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1aries" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.aries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1cancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.cancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.gemini
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1leo" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.leo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1libra" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.libra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1pisces" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.pisces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1_r1capricorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1_R1.capricorn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pKP1-NDM-1_R1.capricorn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1scorpio" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.scorpio
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1taurus" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.taurus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1virgo" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.virgo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../long-read-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Long read qc answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../read-class-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sequence-data-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sequence data answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../short-read-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read QC - FASTQC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../short-read-qc-answers2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read QC - trimming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using-gzip-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for Using tar and gzip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Genepi biotrain
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Genepi biotrain
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genepi-biotrain/00-welcome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genepi-biotrain/90-further-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Further reading and additional resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Genome annotation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Genome annotation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genome-annotation/2000-01-07-annotation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Genome browsers and annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genome-annotation/2000-01-08-auto-annotation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automated annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quality control
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Quality control
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/00-poor-qc-issues/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why is quality control important?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/01-qc-framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A framework for quality control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/05-read-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality control criteria for sequenced reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/10-read-classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Read classification of our sequenced data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/11-read-classification-cmd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Read classification (command-line)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/20-short-read-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Quality control for short reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/40-assembly-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality control criteria for genome assemblies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/50-assembly-qc-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Genome assembly QC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Unix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Unix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/file-compression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understanding file compression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/using-gzip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using tar and gzip for fun and profit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#identify-the-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identify the file format?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-other-common-file-extensions-people-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      List other common file extensions people use?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-you-define-some-general-rules-to-determine-the-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can you define some general rules to determine the file format?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Can you define some general rules to determine the file format?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1aries" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.aries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1cancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.cancer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1gemini" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.gemini
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1leo" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.leo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1libra" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.libra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1pisces" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.pisces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1_r1capricorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1_R1.capricorn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pKP1-NDM-1_R1.capricorn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1scorpio" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.scorpio
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1taurus" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.taurus
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pkp1-ndm-1virgo" class="md-nav__link">
+    <span class="md-ellipsis">
+      pKP1-NDM-1.virgo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="common-file-formats-answers">Common file formats (answers)</h1>
+<p>Answers for <a href="{{site.baseurl}}/modules/sequencing/file-formats">File formats</a> exercise.</p>
+<h2 id="identify-the-file-format">Identify the file format?</h2>
+<table>
+<thead>
+<tr>
+<th>Hidden filename</th>
+<th>True filename</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pKP1-NDM-1.taurus</td>
+<td>pKP1-NDM-1.bcf</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1.leo</td>
+<td>pKP1-NDM-1.bed</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1.aries</td>
+<td>pKP1-NDM-1.fasta</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1.libra</td>
+<td>pKP1-NDM-1.gff</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1_R1.capricorn</td>
+<td>pKP1-NDM-1_R1.fasta.gz</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1_R1.virgo</td>
+<td>pKP1-NDM-1_R1.fastq.gz</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1_R2.scorpio</td>
+<td>pKP1-NDM-1_R2.fastq.gz</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1.cancer</td>
+<td>pKP1-NDM-1.sam</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1.gemini</td>
+<td>pKP1-NDM-1.sorted.bam</td>
+</tr>
+<tr>
+<td>pKP1-NDM-1.pisces</td>
+<td>pKP1-NDM-1.vcf</td>
+</tr>
+</tbody>
+</table>
+<h2 id="list-other-common-file-extensions-people-use">List other common file extensions people use?</h2>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>File extensions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>FASTA</em></td>
+<td>.fasta, .fna, .fas, .fa</td>
+</tr>
+<tr>
+<td><em>FASTQ</em></td>
+<td>.fastq</td>
+</tr>
+<tr>
+<td><em>SAM (Sequence Alignment/Map)</em></td>
+<td>.sam</td>
+</tr>
+<tr>
+<td><em>BAM (Binary Alignment/Map)</em></td>
+<td>.bam</td>
+</tr>
+<tr>
+<td><em>VCF (Variant Call Format)</em></td>
+<td>.vcf</td>
+</tr>
+<tr>
+<td><em>BCF (Binary Call Format)</em></td>
+<td>.bcf</td>
+</tr>
+<tr>
+<td><em>BED (Browser Extensible Data)</em></td>
+<td>.bed, .bedfile</td>
+</tr>
+<tr>
+<td><em>GFF/GTF (General Feature Format/General Transfer Format)</em></td>
+<td>.gff, .gtf, .gff3</td>
+</tr>
+<tr>
+<td><em>FAST5</em></td>
+<td>.fast5</td>
+</tr>
+</tbody>
+</table>
+<h2 id="can-you-define-some-general-rules-to-determine-the-file-format">Can you define some general rules to determine the file format?</h2>
+<h4 id="pkp1-ndm-1aries">pKP1-NDM-1.aries</h4>
+<p>FASTA files start with a header line starting with '&gt;', followed by the sequence data.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&gt;KF992018.2 Klebsiella pneumoniae strain KP1 plasmid pKP1-NDM-1, complete sequence
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>GATAGGCTCAGATAAACAGACCTTACCCTCGCATCGAGAACCGCTTGCCCTCCAGCATCGAGAGACGGTG
+</code></pre></div>
+<h4 id="pkp1-ndm-1cancer">pKP1-NDM-1.cancer</h4>
+<p>SAM files start with a header line starting with '@', followed by the sequence data. SAM format is fairly complicated, but there is detailed specification online, https://en.wikipedia.org/wiki/SAM_(file_format). </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>@HD     VN:1.6  SO:unsorted     GO:query
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>@SQ     SN:KJ802404.1   LN:166750
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>@PG     ID:minimap2     PN:minimap2     VN:2.26-r1175   CL:minimap2 -ax sr ref.fasta pKP1-NDM-1_R1.fastq.gz pKP1-NDM-1_R2.fastq.gz
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>KF992018.2-55020        83      KJ802404.1      125388  60      150M    =      125339   -199    TATTGGAGCTGGGTTGGAGCTACTTAGCCAACTAATCGAAAATAATGGGAGTTGGAAATGTGTTAGTTGGTCAAAAGTTGGAATCGCCGGAGCGATTGGGGCTATAGGTGGCGGCTGGGCGTCAGGAGTTTTCAGACATGCCAGCTCCGG  GCGGGGGGGG1GGGGGCGCCCGGGGGGGCC8GG=8GGGGCGGGCGG=GCJGGGG=GCCGCGGGG=GGGG=GGGCCGCG8G8JJCGJC8GGGJJCJGJJGGGGGGJJJGGGJJGJCJJJJJJGJJGCGJJJJJGJJJJGGGGGGGGG=1CC NM:i:0   ms:i:300        AS:i:300        nn:i:0  tp:A:P  cm:i:17 s1:i:183       s2:i:0   de:f:0  rl:i:0
+</code></pre></div>
+<h4 id="pkp1-ndm-1gemini">pKP1-NDM-1.gemini</h4>
+<p>BAM files start with a header line starting with '@', followed by the mapping data. This one is tricky, because it is a binary file in its own format. To figure this out, I did the following</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>head<span class="w"> </span>pKP1-NDM-1.gemini<span class="w"> </span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>zcat<span class="w">  </span>pKP1-NDM-1.gemini<span class="w"> </span><span class="p">|</span><span class="w"> </span>more<span class="w"> </span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>conda<span class="w"> </span>env<span class="w"> </span>list<span class="w"> </span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>conda<span class="w"> </span>activate<span class="w"> </span>week2<span class="w"> </span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>samtools<span class="w"> </span>view<span class="w"> </span>pKP1-NDM-1.gemini<span class="w"> </span><span class="p">|</span><span class="w"> </span>more<span class="w"> </span>
+</code></pre></div>
+<p>The <code>zcat</code> output looked like a slightly garbled <code>bam</code> file, to work with <code>bam</code> files it is best to use <code>samtools view</code>. You make need to install <code>samtools</code> via <code>conda</code>, or use the <code>week2</code> environment (as above). </p>
+<p>The final output is the same as the <code>sam</code> file above, so the validation is the same as for the <code>sam</code> file.</p>
+<h4 id="pkp1-ndm-1leo">pKP1-NDM-1.leo</h4>
+<p>This is a BED file. BED files, like quite a few formats, are a tabular (tab-delimited) table. </p>
+<p>A typical BED file contains the following columns:</p>
+<ul>
+<li>Chromosome: The name of the chromosome or sequence where the feature is located.</li>
+<li>Start Position: The starting position of the feature on the chromosome, typically a 0-based coordinate.</li>
+<li>End Position: The ending position of the feature on the chromosome, also in 0-based coordinate.</li>
+<li>Name/ID: A user-defined name or identifier for the feature (optional).</li>
+<li>Score: A numeric value associated with the feature (optional).</li>
+<li>Strand: Indicates the strand of the DNA (either "+" for forward or "-" for reverse) where the feature is located (optional).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>KJ802404.1      0       115     KF992018.2-51862/1      60      +
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>KJ802404.1      0       100     KF992018.2-50856/1      60      +
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>KJ802404.1      0       60      KF992018.2-41754/2      60      +
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>KJ802404.1      0       28      KF992018.2-40806/1      8       +
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>KJ802404.1      0       134     KF992018.2-40026/2      60      +
+</code></pre></div>
+<h4 id="pkp1-ndm-1libra">pKP1-NDM-1.libra</h4>
+<p>This is a GFF file. This is another tabular file format, but with a different structure to BED files. Much of the information is the same and it can be hard to tell the difference. </p>
+<p>A typical GFF file contains tab-delimited fields with specific information about genomic features. The fields in a GFF file are as follows:</p>
+<ul>
+<li>Sequence or Reference Identifier: The name of the chromosome or reference sequence where the feature is located.</li>
+<li>Source: The source of the feature's annotation data (e.g., a software tool or database).</li>
+<li>Feature Type: Describes the type of genomic feature (e.g., gene, exon, mRNA, CDS, etc.).</li>
+<li>Start Position: The starting position of the feature on the reference sequence (1-based).</li>
+<li>End Position: The ending position of the feature on the reference sequence (inclusive, 1-based).</li>
+<li>Score: A numeric value associated with the feature, which can represent confidence or significance (optional).</li>
+<li>Strand: Indicates the strand of the DNA where the feature is located (+ for forward strand, - for reverse strand, or . for unknown strand).</li>
+<li>Frame: Describes the reading frame of the feature (optional; typically used for coding sequences).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>KJ802404.1      bed2gff KF992018.2-51862/1      1       115     60      +      .KF992018.2-51862/1;
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>KJ802404.1      bed2gff KF992018.2-50856/1      1       100     60      +      .KF992018.2-50856/1;
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>KJ802404.1      bed2gff KF992018.2-41754/2      1       60      60      +      .KF992018.2-41754/2;
+</code></pre></div>
+<h4 id="pkp1-ndm-1pisces">pKP1-NDM-1.pisces</h4>
+<p>This is a VCF file. The <code>#</code> denote header lines, the <code>#CHROM</code> line is the header line for the data. The actual data, which are  variant calls, follows after and is tab-delimited. I don't remember the specifics of each file format if I haven't worked with them for a while. I would have to look up the VCF specification to remember the details, see https://en.wikipedia.org/wiki/Variant_Call_Format for details. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>##fileformat=VCFv4.2
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>##samtoolsVersion=1.9+htslib-1.9
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>##samtoolsCommand=samtools mpileup -g -B pKP1-NDM-1.sorted.bam
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>##contig=&lt;ID=KJ802404.1,length=166750&gt;
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  pKP1-NDM-1.sorted.bam
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>KJ802404.1      1       .       N       A,&lt;*&gt;   0       .       DP=25;I16=0,0,17,0,0,0,921,54865,0,0,1020,61200,0,0,349,8157;QS=0,1,0;VDB=3.43287e-11;SGB=-0.690438;MQ0F=0      PL      255,51,0,255,51,255
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>KJ802404.1      2       .       N       T,&lt;*&gt;   0       .       DP=25;I16=0,0,17,0,0,0,912,53316,0,0,1020,61200,0,0,355,8311;QS=0,1,0;VDB=3.87166e-11;SGB=-0.690438;MQ0F=0      PL      255,51,0,255,51,255
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>KJ802404.1      3       .       N       G,&lt;*&gt;   0       .       DP=25;I16=0,0,17,0,0,0,859,47439,0,0,1020,61200,0,0,361,8477;QS=0,1,0;VDB=4.36512e-11;SGB=-0.690438;MQ0F=0      PL      255,51,0,255,51,255
+</code></pre></div>
+<h4 id="pkp1-ndm-1_r1capricorn">pKP1-NDM-1_R1.capricorn</h4>
+<p>This is a binary file, a gzip file specifically, <code>zcat</code> will show us that it is a FASTA file as we saw before. The headers and the sequence length suggests it was a FASTQ file, but the quality scores are now removed. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&gt;KF992018.2-55020/1
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>CCGGAGCTGGCATGTCTGAAAACTCCTGACGCCCAGCCGCCACCTATAGCCCCAATCGCTCCGGCGATTCCAACTTTTGA
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>CCAACTAACACATTTCCAACTCCCATTATTTTCGATTAGTTGGCTAAGTAGCTCCAACCCAGCTCCAATA
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>&gt;KF992018.2-55018/1
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>CAAGGCCCGGTCGGCTTTGGTGTACCTCCAACCAATTTTGGAGGCACTATGTCTAATTCAAATTTCGGCTTTCTAGCTCT
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>GGCCTTGCGCCAACGCCTGATCAAACGCTGGTCACTGATGCACTCTGTTCAACCGGAGTCTGTGTTGGAT
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>&gt;KF992018.2-55016/1
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>AGCACCAGCAATACCGAAGAATAGGAAAGCCAGTATTGCCCCGGCCTTCAACCATACAAAAACACTTCTCACAATTATCC
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>TTCCTGCTTTACAAATGGGTCTCTGCCATCGAGAGGCTTTGAAAAAATAGCCCCCGGCTCAGACATCGCC
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>&gt;KF992018.2-55014/1
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>AGTCGATGTCGCCATTGGTATAGCACCGAATTTGTCTGTAAAGGTGGAGAGTCATGACACCAGGGCAGTCCGCTCGAAGT
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>GCTTCAAACCTCTCTTGCCTGGTGGGGTACGTCGAGATAATGAACTCCTCGATACCAGCTTTGGCCGCGT
+</code></pre></div>
+<h5 id="pkp1-ndm-1scorpio">pKP1-NDM-1.scorpio</h5>
+<p>This is a compressed (gzipped) FASTQ file. We need <code>zcat</code> or similar to handle the file compression. You may have noticed the <code>/2</code> at the end of each header. This is a convention that tells us this is the mate pair (R2) of a paired-end read. This convention is not always enforced, so I would ask the person who gave me the file to confirm.  We will delve more into FASTQ format in the next section, so I will not give a full explantion here.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>@KF992018.2-55020/2
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>CTATGTCCAATACCGACCCGACGGGTGAATTTGCGTTTGTTGGTGCAGGTATTGGCGCTGGGTTGGAGCTACTTAGCCAA
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>CTAATCGAAAATAATGGGAGTTGGAAATGTGTTAGTTGGTCAAAAGTTGGAATCGCCGGAGCGATTGGGG
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>+
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>1CCGGGGGGCGGGJCJJJJ1JJJGJJGJJJGJ1CGJGJGCJC=GJC1CJGCGGCJ(=JGJGJJG1=GGJGGGGGGGGGGG
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>C88GCGGCGCC=CGGC8GGGG=JCJJ1GGGGGGGG=GCCGGGGGG=GGGGCGG1GCGGGGGGGGGCGCG8
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>@KF992018.2-55018/2
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>ATATTGCCAGCCAGGTAGGAAAGCAGGGTAACAACAGCGCTGTGTTCCAACACAGACTCCGGTTGAACAGAGTGCATCAG
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>TGACCAGCGTTTGATCAGGCGTTGGCGCAAGGCCAGAGCTAGAAAGCCGAAATTTGAATTAGACATAGTG
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>+
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>CCCCGGGGGGCGGGJJJJJJ(JJJCJGJG18JJJJJGJCCJGG=JJJCJGGJJGG=CJJCJJ8GGJCJGC=CGGC=CGCG
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>CGGCCGCGGCGG=GCGGCG=GGC=CJCCGGCGCGCGGGGCGGGGCGGGCG(GCCGGGCGGGCGGGGCGCC
+</code></pre></div>
+<h4 id="pkp1-ndm-1taurus">pKP1-NDM-1.taurus</h4>
+<p>This is a compressed VCF file, i.e. a bcf file. We can view the contents with <code>zcat</code> or similar. 
+We can also use <code>bcftools view</code> or <code>bcftools query</code> (the same way we do with SAM/BAM). After this point, we handle this the same way as a vcf file (see above). </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>KJ802404.1<span class="w">      </span><span class="m">147292</span><span class="w">  </span>.<span class="w">       </span>N<span class="w">       </span>A,&lt;*&gt;<span class="w">   </span><span class="m">0</span><span class="w">       </span>.<span class="w">       </span><span class="nv">DP</span><span class="o">=</span><span class="m">74</span><span class="p">;</span><span class="nv">I16</span><span class="o">=</span><span class="m">0</span>,0,38,11,0,0,2697,164485,0,0,2880,169920,0,0,907,20489<span class="p">;</span><span class="nv">QS</span><span class="o">=</span><span class="m">0</span>,1,0<span class="p">;</span><span class="nv">VDB</span><span class="o">=</span><span class="m">0</span>.977868<span class="p">;</span><span class="nv">SGB</span><span class="o">=</span>-0.693147<span class="p">;</span><span class="nv">MQSB</span><span class="o">=</span><span class="m">0</span>.99742<span class="p">;</span><span class="nv">MQ0F</span><span class="o">=</span><span class="m">0</span><span class="w">       </span>PL<span class="w">      </span><span class="m">255</span>,148,0,255,148,255
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>KJ802404.1<span class="w">      </span><span class="m">147293</span><span class="w">  </span>.<span class="w">       </span>N<span class="w">       </span>T,&lt;*&gt;<span class="w">   </span><span class="m">0</span><span class="w">       </span>.<span class="w">       </span><span class="nv">DP</span><span class="o">=</span><span class="m">75</span><span class="p">;</span><span class="nv">I16</span><span class="o">=</span><span class="m">0</span>,0,38,11,0,0,2794,173756,0,0,2880,169920,0,0,900,20296<span class="p">;</span><span class="nv">QS</span><span class="o">=</span><span class="m">0</span>,1,0<span class="p">;</span><span class="nv">VDB</span><span class="o">=</span><span class="m">0</span>.975609<span class="p">;</span><span class="nv">SGB</span><span class="o">=</span>-0.693147<span class="p">;</span><span class="nv">MQSB</span><span class="o">=</span><span class="m">0</span>.99742<span class="p">;</span><span class="nv">MQ0F</span><span class="o">=</span><span class="m">0</span><span class="w">       </span>PL<span class="w">      </span><span class="m">255</span>,148,0,255,148,255
+</code></pre></div>
+<h4 id="pkp1-ndm-1virgo">pKP1-NDM-1.virgo</h4>
+<p>This is a compressed FASTQ file. We can view the contents with <code>zcat</code> or similar. You may have noticed the <code>/1</code> at the end of each header. This is a convention that tells us this is the first read pair (R1) of a paired-end read. This convention is not always enforced, so I would ask the person who gave me the file to confirm. We will delve more into FASTQ format in the next section, so I will not give a full explantion here.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>@KF992018.2-55020/1
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>CCGGAGCTGGCATGTCTGAAAACTCCTGACGCCCAGCCGCCACCTATAGCCCCAATCGCTCCGGCGATTCCAACTTTTGA
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>CCAACTAACACATTTCCAACTCCCATTATTTTCGATTAGTTGGCTAAGTAGCTCCAACCCAGCTCCAATA
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>+
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nv">CC1</span><span class="o">=</span><span class="nv">GGGGGGGGGJJJJGJJJJJGCGJJGJJJJJJCJGJJGGGJJJGGGGGGJJGJCJJGGG8CJGCJJ8G8GCGCCGGG</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="o">=</span><span class="nv">GGGG</span><span class="o">=</span><span class="nv">GGGGCGCCG</span><span class="o">=</span><span class="nv">GGGGJCG</span><span class="o">=</span><span class="nv">GGCGGGCGGGG8</span><span class="o">=</span>GG8CCGGGGGGGCCCGCGGGGG1GGGGGGGGCG
+</code></pre></div>
+<blockquote>
+<p>As you get more familiar with data from a specific organism or datatype, you maybe able to identify the type of data simply by the file size. For example, for what I do, a 300MB file is likely to be a FASTQ file, while a 1MB file is likely to be a VCF file. </p>
+</blockquote>
+<p>Back to <a href="{{site.baseurl}}/modules/sequencing/file-formats">File formats</a> exercise.</p>
+<p><a href="{{site.baseurl}}/modules/sequencing/week-2-programme/">Back to Programme</a>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

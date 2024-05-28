@@ -1,0 +1,1503 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../glossary/">
+      
+      
+        <link rel="next" href="../../concepts/fastq-in-detail/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>Hybrid and short-read-only assembly of sequenced reads - The Microbial Bioinformatics Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hybrid-and-short-read-only-assembly-of-sequenced-reads" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Microbial Bioinformatics Handbook" class="md-header__button md-logo" aria-label="The Microbial Bioinformatics Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Microbial Bioinformatics Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hybrid and short-read-only assembly of sequenced reads
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Microbial Bioinformatics Handbook" class="md-nav__button md-logo" aria-label="The Microbial Bioinformatics Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    The Microbial Bioinformatics Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to The Microbial Bioinformatics Handbook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Assembly compare
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Assembly compare
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Hybrid and short-read-only assembly of sequenced reads
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Hybrid and short-read-only assembly of sequenced reads
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#short-read-assembly-with-shovill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Short read assembly with Shovill
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Short read assembly with Shovill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#doing-short-read-assembly-with-shovill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Doing short read assembly with Shovill
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-assembly-with-unicyler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid assembly with Unicyler
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid assembly with Unicyler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#doing-hybrid-assembly-with-unicyler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Doing hybrid assembly with Unicyler
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/fastq-in-detail/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FASTQ in detail
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/file-formats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploring file formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/genome-assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is a genome assembler doing?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequence-alignment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local vs global alignment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequence-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Revisting sequence file formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/sequencing-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Background to sequencing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exercise answers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Exercise answers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/check-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answeres for Practical - Genome assembly QC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/fastq-in-detail-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FASTQ in detail answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/file-compression-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File compression answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/file-formats-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Common file formats (answers)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/long-read-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Long read qc answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/read-class-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read classification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/sequence-data-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sequence data answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/short-read-qc-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read QC - FASTQC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/short-read-qc-answers2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for read QC - trimming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exercise-answers/using-gzip-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Answers for Using tar and gzip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Genepi biotrain
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Genepi biotrain
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genepi-biotrain/00-welcome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genepi-biotrain/90-further-reading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Further reading and additional resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Genome annotation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Genome annotation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genome-annotation/2000-01-07-annotation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Genome browsers and annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../genome-annotation/2000-01-08-auto-annotation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automated annotation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quality control
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Quality control
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/00-poor-qc-issues/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why is quality control important?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/01-qc-framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A framework for quality control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/05-read-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality control criteria for sequenced reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/10-read-classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Read classification of our sequenced data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/11-read-classification-cmd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Read classification (command-line)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/20-short-read-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Quality control for short reads
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/40-assembly-qc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quality control criteria for genome assemblies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quality-control/50-assembly-qc-exercise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practical - Genome assembly QC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Unix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Unix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/file-compression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understanding file compression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/using-gzip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using tar and gzip for fun and profit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#short-read-assembly-with-shovill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Short read assembly with Shovill
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Short read assembly with Shovill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#doing-short-read-assembly-with-shovill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Doing short read assembly with Shovill
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-assembly-with-unicyler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid assembly with Unicyler
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid assembly with Unicyler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#doing-hybrid-assembly-with-unicyler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Doing hybrid assembly with Unicyler
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="hybrid-and-short-read-only-assembly-of-sequenced-reads">Hybrid and short-read-only assembly of sequenced reads</h1>
+<p>In this exercise, you will take the reads of our novel pathogen and assembly the genome using the short reads alone and a hybrid assembly using both long and short reads. This is to illustrate how differences in sequencing data (namely, read length) will affect the final outcome. We will use these assemblies in subsequent analyses.  </p>
+<p>If you are unsure about files and file types, please review <a href="https://www.youtube.com/watch?v=KN8YgJnShPM&amp;list=PL8dPuuaLjXtNlUrzyH5r6jN9ulIgZBpdo&amp;index=21">Crash Course Computer Science episode 20</a>. The <a href="https://www.youtube.com/watch?v=OtDxDvCpPL4&amp;list=PL8dPuuaLjXtNlUrzyH5r6jN9ulIgZBpdo&amp;index=22">Crash Course Computer Science episode 21</a> is also helpful in understanding compression (.gz, .zip). The <a href="https://www.youtube.com/watch?v=26QPDBe-NB8&amp;list=PL8dPuuaLjXtNlUrzyH5r6jN9ulIgZBpdo&amp;index=19">episode on operating systems</a> will also help you understand <code>Unix</code> a little better. </p>
+<h2 id="short-read-assembly-with-shovill">Short read assembly with Shovill</h2>
+<p>About Shovill: The <a href="https://github.com/ablab/spades">SPAdes genome assembler</a> has become the de facto standard de novo genome assembler for Illumina whole genome sequencing data of bacteria and other small microbes. </p>
+<p>SPAdes was a major improvement over previous assemblers like Velvet, but some of its components can be slow and it traditionally did not handle overlapping paired-end reads well. </p>
+<p>Shovill is a pipeline which uses SPAdes at its core, but alters the steps before and after the primary assembly step to get similar results in less time. Shovill also supports other assemblers like SKESA, Velvet and Megahit, so you can take advantage of the pre- and post-processing the Shovill provides with those too. </p>
+<p>Warning: Shovill is for isolate data only, primarily small haploid organisms. It will NOT work on metagenomes or larger genomes. Please use Megahit directly instead. See more details at <a href="https://github.com/tseemann/shovill">https://github.com/tseemann/shovill</a></p>
+<h3 id="doing-short-read-assembly-with-shovill">Doing short read assembly with Shovill</h3>
+<p>Is Shovill installed? Please see the <a href="{{site.baseurl}}/modules/sequence-analysis/download-data/">Installing software</a> section.</p>
+<p>We can run Shovill with:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>shovill  --R1 novel-pathogen_R1.fastq.gz  \
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         --R2 novel-pathogen_R2.fastq.gz   \
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>         --outdir short_read_only --force
+</code></pre></div></p>
+<p>The final output: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[shovill] Repaired 0 contigs from spades.fasta at 0 positions.
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[shovill] Assembly is 4938311, estimated genome size was 4712883 (+4.78%)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[shovill] Using genome graph file &#39;spades/assembly_graph_with_scaffolds.gfa&#39; =&gt; &#39;contigs.gfa&#39;
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[shovill] Walltime used: 3 min 6 sec
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>[shovill] Results in: /home/ubuntu/code/mmbdtp.github.io/temp/short_read_only
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>[shovill] Final assembly graph: /home/ubuntu/code/mmbdtp.github.io/temp/short_read_only/contigs.gfa
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>[shovill] Final assembly contigs: /home/ubuntu/code/mmbdtp.github.io/temp/short_read_only/contigs.fa
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>[shovill] It contains 297 (min=75) contigs totalling 4938311 bp.
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>[shovill] More correct contigs is better than fewer wrong contigs.
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>[shovill] Done.
+</code></pre></div>
+<p>The contents of the <code>short_read_only</code> folder: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>(shovill) ubuntu@chomp:~/code/mmbdtp.github.io/temp$ ls short_read_only/ -hl
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>total 15M
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>-rw-rw-r-- 1 ubuntu ubuntu 4.9M Nov  2 17:01 contigs.fa
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>-rw-rw-r-- 1 ubuntu ubuntu 4.8M Nov  2 17:01 contigs.gfa
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>-rw-rw-r-- 1 ubuntu ubuntu    0 Nov  2 17:01 shovill.corrections
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>-rw-rw-r-- 1 ubuntu ubuntu 365K Nov  2 17:01 shovill.log
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>-rw-rw-r-- 1 ubuntu ubuntu 4.8M Nov  2 17:01 spades.fasta
+</code></pre></div>
+<p>The important output files, please review each of these:</p>
+<ul>
+<li>contigs.fa: The final assembly you should use</li>
+<li>contigs.gfa: Assembly graph (spades)</li>
+<li>shovill.log: Full log file for bug reporting</li>
+</ul>
+<h2 id="hybrid-assembly-with-unicyler">Hybrid assembly with Unicyler</h2>
+<p>There are different programs for hybrid assembly, with slightly different results. So, why <a href="https://github.com/rrwick/Unicycler">Unicycler</a>?</p>
+<ul>
+<li>All in one package - Good hybrid assembly</li>
+<li>Can use short read only and bridge gaps with some guesswork </li>
+<li>A lot of options on how aggressive you want it to join contigs</li>
+<li>Easy install</li>
+<li>Checks for circularisation </li>
+</ul>
+<h3 id="doing-hybrid-assembly-with-unicyler">Doing hybrid assembly with Unicyler</h3>
+<p>Is Unicyler installed? Please see the <a href="{{site.baseurl}}/modules/sequence-analysis/download-data/">Installing software</a> section. </p>
+<p>We can run Unicyler with:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>unicycler -1 novel-pathogen_R1.fastq.gz \
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  -2 novel-pathogen_R2.fastq.gz \
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  -l novel-pathogen-long-reads.fastq.gz  \
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  -o hybrid_assembly
+</code></pre></div></p>
+<p>The contents of the <code>hybrid_assembly</code> folder: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>001_spades_graph_k027.gfa
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>001_spades_graph_k053.gfa
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>001_spades_graph_k071.gfa
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>001_spades_graph_k087.gfa
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>001_spades_graph_k099.gfa
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>001_spades_graph_k111.gfa
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>001_spades_graph_k119.gfa
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>001_spades_graph_k127.gfa
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>002_depth_filter.gfa
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>003_overlaps_removed.gfa
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>004_long_read_assembly.gfa
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>005_bridges_applied.gfa
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>006_final_clean.gfa
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>assembly.fasta
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>assembly.gfa
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>unicycler.log
+</code></pre></div>
+<p>At this stage, you may want to ask about what's different about a hybrid assembly?</p>
+<p>The important output files:</p>
+<ul>
+<li>assembly.fasta: The final assembly you should use</li>
+<li>assembly.gfa: Assembly graph </li>
+<li>unicycler.log: Full log file for bug reporting</li>
+</ul>
+<h1 id="exercise-1-short-read-and-hybrid-assembly">Exercise 1: Short read and hybrid assembly</h1>
+<h2 id="theory-questions">Theory questions</h2>
+<p><strong>Define "Read 1" and "Read 2" in the context of paired-end sequencing. What is the direction of extension for each?</strong></p>
+<p><strong>Explain the term "homopolymers" and why they are difficult to read accurately in sequencing.</strong></p>
+<p><strong>Why is it important for read lengths to span repeated sequences in the genome during assembly?</strong></p>
+<p><strong>What issues do some sequencing platforms encounter when dealing with GC-rich or AT-rich DNA sequences?</strong></p>
+<h2 id="practical-questions">Practical questions</h2>
+<p><strong>Assemble the genome of our novel pathogen using short reads only</strong> </p>
+<p><strong>Assemble the genome of our novel pathogen using both long and short reads (as a hybrid assembly)</strong></p>
+<p><em>We will compare the results of these assemblies in the next exercise</em></p>
+<p><a href="/seq-analysis/genome-assembly-answers">Answers to the exercises</a></p>
+<p><a href="{{site.baseurl}}/modules/sequence-analysis/programme/">Back to Programme</a>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>
