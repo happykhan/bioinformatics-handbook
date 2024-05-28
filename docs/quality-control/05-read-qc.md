@@ -54,7 +54,7 @@ Go to [Practical - Read classification of our sequenced data](10-read-classifica
 
 Unlike criteria like Yield and Contamination, Condition looks at the intrinsic quality of the sequencing data. We are checking for errors introduced in the sequencing process, which include poor overall sequence read quality, shorter read length than expected, or introduced artefacts like unexpected constructs like adapter content. Luckily, sequencing instruments provide a quality score for each base sequenced along with the base itself, and many instruments provide detailed reporting as well. I find the reports from Illumina platforms very useful i.e. output from [bcl2fastq](https://support.illumina.com/content/dam/illumina-support/documents/documentation/software_documentation/bcl2fastq/bcl2fastq_letterbooklet_15038058brpmi.pdf). 
 
-Here are a list of considerations for assesing the overall condition of sequenced reads: 
+Here are a list of considerations for assessing the overall condition of sequenced reads: 
 
 * Total number of sequences and average sequence length
 * GC content

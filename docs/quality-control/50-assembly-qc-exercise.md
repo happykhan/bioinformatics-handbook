@@ -47,6 +47,8 @@ GCCGCTTTTTCGCGTTGCTTAATCT...
 
 This exercise is open-ended, and you can use any tools you like. You can use the tools mention in [Quality control criteria for genome assemblies](/quality-control/40-assembly-qc), or you can try other tools. You can work in groups, or divide the different criteria between yourselves.
 
+[Here is a link to the assemblies](https://zenodo.org/records/10018484/files/additional_genomes_for_qc.zip?download=1)
+
 If you do not have time, or the capacity to run these analyses, please use the precomputed results below. It is more important that you learn how to interpret the results. 
 
 * [BUSCO - summary images](/quality-control/files/busco_summary_image.zip)
@@ -56,6 +58,20 @@ If you do not have time, or the capacity to run these analyses, please use the p
 * [QUAST - pdf](/quality-control/files/quast-qc.pdf)
 * [QUAST - table](/quality-control/files/quast-qc.tabular.txt)
 * [QUAST - html](/quality-control/files/Quast-qc-html.zip)
+
+If you complete the task above, also try to answer the following questions: 
+
+**What is N50?**
+
+**What is GC Content?** 
+
+**What is "Genome Coverage"?** 
+
+**How does BUSCO measure completeness?** 
+
+**How does aligning to a reference genome help assess completeness?**
+
+**How does using Kraken help assess contamination?**
 
 
 [Answers to exercises](/exercise-answers/check-qc-answers/)

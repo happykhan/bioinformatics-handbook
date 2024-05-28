@@ -25,7 +25,7 @@ For this exercise, we have three of the same samples that were processed in thre
 Then use this information to answer the following questions:
 
 * **Which species were each sample supposed to be?**
-* **Are there indiciations of contamination?** 
+* **Are there indications of contamination?** 
 * **If there is contamination, what are the top three (in terms of abundance) other species identified?**
 * **For each sample, how many reads were unclassified?**
 * **Consider the typical genome size for each species, and calculate whether the samples have enough coverage for genome assembly**.
